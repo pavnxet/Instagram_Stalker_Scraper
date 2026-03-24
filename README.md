@@ -1,54 +1,71 @@
 # Instagram_stalker-scrapper-
-Fetch data from any public Instagram profile
+Fetch data from any **public** Instagram profile (updated for March 2026)
 
-### This program download all the post of instagram profile(PUBLIC) and then shows the bar graph of likes of each post _(from older to newer post)_
+### What this does
+1. Validates that the target account exists and is public.
+2. Fetches metadata (likes, comments, type) for every post.
+3. Downloads all posts (images, videos, carousels) into `./insta_img/<username>/`.
+4. Displays a bar graph of likes per post from oldest to newest.
 
-First of all, I want to say that this project helped me learn a lot of things about web scraping and many python libraries (some of them aren't used)
+> **Note:** Instagram no longer exposes a public JSON API (`?__a=1`) or unauthenticated
+> GraphQL endpoints. This project now uses **[instaloader](https://instaloader.github.io/)**,
+> a well-maintained library that handles authentication, rate-limiting, and Instagram's
+> current API surface automatically.
 
-Now what this does is, it downloads all the posts(including videos) of any PUBLIC instagram account and save it in your current working directory.
-And it also shows the bar graph (likes of each post) from older to newer posts.
+---
 
-When I started this project, I googled a lot of things(don't remember) and visited a lot of blogs. Thanks, everyone :)
-But there is one blog that tells exactly how to scrape the AJAX part or infinite scrolling of Instagram account.
+## Prerequisites
 
-Infinite Scrolling - https://www.diggernaut.com/blog/how-to-scrape-pages-infinite-scroll-extracting-data-from-instagram/#comment-157
+- **Python 3.9+**
+- **pip**
 
-I recommend visiting this blog and google the term that you don't understand from the blog (like XHR and many more).
+Install all dependencies at once:
 
-And one final advice - Go through the _requests_ library if you are programming with __python__.
+```bash
+pip install -r requirements.txt
+```
 
-_Requests Package_ - http://docs.python-requests.org/en/master/user/quickstart/
+Or individually:
 
-And if you are interested in plotting graph in python:
+```bash
+pip install instaloader requests matplotlib
+```
 
-_Matplotlib_ - https://matplotlib.org/tutorials/introductory/sample_plots.html
+---
 
-Good Luck!
+## How to Run
 
-## Prerequisite:
-_Python 3_
+```bash
+cd src
+python driver.py
+```
 
-_pip(Python Package Index) :_
+Enter a username when prompted (with or without the leading `@`):
 
-> $ sudo apt-get install python3-pip
+```
+Enter the profile name: natgeo
+```
 
-_requests package :_
+Downloaded files are saved to `./insta_img/natgeo/`.
 
-> $ sudo pip3 install requests
+---
 
-_lxml package :_
+## Optional: Log in to Instagram
 
-> $ sudo apt-get install libxml2-dev libxslt1-dev python-dev
+Instaloader can optionally use your credentials to avoid stricter rate-limits on
+unauthenticated sessions. To save a session:
 
-> $ pip3 install lxml
+```bash
+instaloader --login YOUR_USERNAME
+```
 
-_matplotlib package :_
+The session cookie is stored automatically and reused by the scraper.
 
-> $ sudo pip3 install matplotlib
+---
 
-_wget package :_
+## Resources
 
-> $ sudo pip3 install wget
+- [Instaloader documentation](https://instaloader.github.io/)
+- [Requests library](https://docs.python-requests.org/)
+- [Matplotlib](https://matplotlib.org/stable/gallery/index.html)
 
-## How to Run:
-Run driver.py
